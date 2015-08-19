@@ -1,2 +1,2 @@
-# vimrc
-My vimrc
+# Tangers Dotfiles
+All me stuffs

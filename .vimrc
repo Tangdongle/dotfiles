@@ -51,7 +51,7 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
 
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'mileszs/ack.vim'
 
@@ -60,6 +60,8 @@ Plugin 'rking/ag.vim'
 Plugin 'tpope/vim-surround.git'
 
 Plugin 'vim-scripts/TaskList.vim'
+
+Plugin 'scrooloose/nerdcommenter'
 
 call vundle#end()
 filetype plugin indent on
