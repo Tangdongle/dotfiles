@@ -45,6 +45,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 set nobackup
+let g:VIMFILESDIR = "/Users/ryancotter/.vim/"
 filetype off
 
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -63,8 +64,18 @@ Plugin 'vim-scripts/TaskList.vim'
 
 Plugin 'scrooloose/nerdcommenter'
 
+"Bundle 'joonty/vim-xdebug.git'
+
 call vundle#end()
 filetype plugin indent on
+
+
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
 
 " Sets how many lines of history VIM has to remember
 set history=700
@@ -77,8 +88,8 @@ set nu
 let g:netrw_liststyle=3
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = "<\space>"
-let g:mapleader = "<\space>"
+let mapleader = ","
+let g:mapleader = ","
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -562,5 +573,12 @@ au FileType,BufWrite xhtml setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 " => Templates
 """"""""""""""""""""""""""""""
 let g:file_template_default = {}
+let g:file_template_default["default"] = "Default"
 let g:file_template_default["php"] = "PHPClass"
 au BufNewFile *.php :LoadFileTemplate
+
+""""""""""""""""""""""""""""""
+" => SVN
+""""""""""""""""""""""""""""""
+let g:svnj_browse_cache_all = 1
+let g:svnj_allow_leader_mappings=1
