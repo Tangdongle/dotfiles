@@ -49,7 +49,7 @@ COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
 # The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
+HIST_STAMPS="dd/mm/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
@@ -173,7 +173,7 @@ fancy-ctrl-z () {
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 
-export PAGER=/usr/local/bin/vimpager
+#export PAGER=/usr/local/bin/vimpager
 alias less=$PAGER
 alias zless=$PAGER
 
@@ -182,3 +182,8 @@ alias -g X='| xargs'
 
 alias svnextern="svn propedit svn:externals ."
 export PATH="/usr/local/sbin:$PATH"
+
+setopt EXTENDED_HISTORY
+
+#Virtual Env
+

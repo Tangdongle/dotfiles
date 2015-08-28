@@ -64,6 +64,8 @@ Plugin 'vim-scripts/TaskList.vim'
 
 Plugin 'scrooloose/nerdcommenter'
 
+Plugin 'google/vim-colorscheme-primary'
+
 "Bundle 'joonty/vim-xdebug.git'
 
 call vundle#end()
@@ -182,8 +184,16 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable 
 
+"try
+"    colorscheme desert
+"catch
+"endtry
+
+
+set t_Co=256
+set background=light
 try
-    colorscheme desert
+	colorscheme primary
 catch
 endtry
 
@@ -193,7 +203,7 @@ set background=dark
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
-    set t_Co=256
+"    set t_Co=256
     set guitablabel=%M\ %t
 endif
 
