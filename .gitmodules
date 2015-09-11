@@ -1,0 +1,3 @@
+[submodule ".vim/bundle/TaskList.vim"]
+	path = .vim/bundle/TaskList.vim
+	url = https://github.com/vim-scripts/TaskList.vim.git
