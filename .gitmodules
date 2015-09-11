@@ -1,3 +1,21 @@
 [submodule ".vim/bundle/TaskList.vim"]
 	path = .vim/bundle/TaskList.vim
 	url = https://github.com/vim-scripts/TaskList.vim.git
+[submodule ".vim/bundle/vim-colorscheme-primary"]
+	path = .vim/bundle/vim-colorscheme-primary
+	url = https://github.com/google/vim-colorscheme-primary.git
+[submodule ".vim/bundle/vim-surround"]
+	path = .vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".vim/bundle/https:/github.com/mileszs/ack.vim.git"]
+	path = .vim/bundle/https:/github.com/mileszs/ack.vim.git
+	url = https://github.com/rking/ag.vim.git
+[submodule ".vim/bundle/Vundle.vim"]
+	path = .vim/bundle/Vundle.vim
+	url = https://github.com/VundleVim/Vundle.vim.git
+[submodule ".vim/bundle/ag.vim"]
+	path = .vim/bundle/ag.vim
+	url = https://github.com/rking/ag.vim.git
+[submodule ".vim/bundle/ack.vim"]
+	path = .vim/bundle/ack.vim
+	url = https://github.com/mileszs/ack.vim.git
