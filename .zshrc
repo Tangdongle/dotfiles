@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/ryancotter/.oh-my-zsh
+
+export ZSH=$HOME/.oh-my-zsh
 
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
@@ -15,9 +16,9 @@ set blink-matching-paren on
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-#ZSH_THEME="zhann" #Simple
+ZSH_THEME="zhann" #Simple
 #ZSH_THEME="bira" 
-ZSH_THEME="darkblood" 
+#ZSH_THEME="darkblood" 
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -64,20 +65,35 @@ plugins=(vi-mode osx)
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/usr/local/git/bin:/opt/ImageMagick/bin:/usr/local/MacGPG2/bin:/usr/texbin"
 # export MANPATH="/usr/local/man:$MANPATH"
-export SVN_EDITOR='mvim -f'
-#export SVN_EDITOR='/usr/local/bin/svn-commit-hook.sh'
-export GIT_EDITOR='mvim -f'
+if [[ $OSTYPE =~ "darwin" ]]; then
+	export SVN_EDITOR='mvim -f'
+	export GIT_EDITOR='mvim -f'
+	export PATH="/Applications/Xcode.app/Contents/Developer/usr/libexec/git-core":$PATH
+elif [[ $OSTYPE == "linux-gnu" ]]; then
+	which gvim &>/dev/null
+	if [ $? -eq 0 ]; then
+		export SVN_EDITOR='gvim'
+		export GIT_EDITOR='gvim'
+	else
+		echo "GVIM not found, falling back to VIM"
+		export SVN_EDITOR='vim'
+		export GIT_EDITOR='vim'
+	fi
+fi
 
 minify() {
     file=$1 
-    file=${file%%.*}
-	java -jar "/Users/ryancotter/scripts/yui.jar" $file.js -o $file.min.js
+   file=${file%%.*}
+   if [[ -x "$HOME/scripts" ]]; then
+		java -jar "$HOME/scripts/yui.jar" $file.js -o $file.min.js
+	fi
 }
 
 alias jsmin=minify
 
-export PATH="/Applications/Xcode.app/Contents/Developer/usr/libexec/git-core":$PATH
-export PATH="~/git-tf":$PATH
+if [[ -x "~/git-tf" ]]; then
+	export PATH="~/git-tf":$PATH
+fi
 
 export CFLAGS=-Qunused-arguments
 export CPPFLAGS=-Qunused-arguments
@@ -130,7 +146,9 @@ alias ss-build-f='sake dev/build "flush=all"'
 alias fuck='sudo $(history -p \!\!)'
 alias vm3='echo vm3.activcloud.com.au'
 
-source /usr/local/bin/virtualenvwrapper.sh
+if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
+	source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 alias start_mysql='sudo $MYSQL_HOME/bin/mysqld_safe &'
 alias stop_mysql='sudo $MYSQL_HOME/bin/mysqladmin shutdown'
@@ -186,4 +204,8 @@ export PATH="/usr/local/sbin:$PATH"
 setopt EXTENDED_HISTORY
 
 #Virtual Env
+function s()
+{
+    screen -t "$@" /usr/bin/ssh "$@"
+}
 
