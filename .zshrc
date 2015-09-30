@@ -16,9 +16,9 @@ set blink-matching-paren on
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="zhann" #Simple
+#ZSH_THEME="zhann" #Simple
 #ZSH_THEME="bira" 
-#ZSH_THEME="darkblood" 
+ZSH_THEME="darkblood" 
 
 
 # Uncomment the following line to use case-sensitive completion.
@@ -160,6 +160,7 @@ autoload -U zmv
 alias zmv="noglob zmv -W"
 export VMAIL_HTML_PART_READER='elinks -dump'
 export VMAIL_VIM=mvim
+alias vim="nvim"
 
 bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
@@ -197,6 +198,12 @@ alias zless=$PAGER
 
 alias -g X='| xargs'
 
+alias music="mpsyt"
+
+function baconate()
+{
+	/usr/bin/baconator | pbcopy
+}
 
 alias svnextern="svn propedit svn:externals ."
 export PATH="/usr/local/sbin:$PATH"
@@ -209,3 +216,7 @@ function s()
     screen -t "$@" /usr/bin/ssh "$@"
 }
 
+eval "$(thefuck --alias)"
+#ssh -f -o ExitOnForwardFailure=yes -L 3306:localhost:3306 sleep 10
+#mysql -e 'SHOW DATABASES;' -h 127.0.0.1
+#pipe connection through , sleep 10 while background process on remote side, ensuring the connection kills itself after 10 seconds

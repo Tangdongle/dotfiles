@@ -1,8 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =6
-let g:netrw_dirhist_1='/Users/ryancotter/Documents/workspace/www/valmec/trunk'
-let g:netrw_dirhist_2='/Users/ryancotter/Documents/workspace/www/valmec'
-let g:netrw_dirhist_3='/Users/ryancotter/Documents/workspace/www'
-let g:netrw_dirhist_4='/Users/ryancotter/Documents/workspace/www/abdy'
-let g:netrw_dirhist_5='/Users/ryancotter/Documents/workspace/www/abdy/trunk'
-let g:netrw_dirhist_6='/Users/ryancotter/Documents/workspace/www/valmec/trunk/_skeleton'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/_config'
+let g:netrw_dirhist_2='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/code/model'
+let g:netrw_dirhist_3='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/code'
+let g:netrw_dirhist_4='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/code/blocks'
+let g:netrw_dirhist_5='/Users/ryancotter'

@@ -251,13 +251,13 @@ map <leader>p :cp<cr>
 
 
 " Pressing ,ss will toggle and untoggle spell checking
-"map <leader>ss :setlocal spell!<cr>
+map <leader>ss :setlocal spell!<cr>
 "
 " Shortcuts using <leader>
-"map <leader>sn ]s
-"map <leader>sp [s
-"map <leader>sa zg
-"map <leader>s? z=
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
 
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
@@ -422,6 +422,7 @@ nmap <leader>ev :vsplit $MYVIMRC<cr>
 au BufNewFile,BufRead,BufCreate,WinLeave,WinEnter *.ss set filetype=xhtml
 au FileType,BufWrite xhtml setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab si
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"au FileType html,xhtml,*.ss compiler html
 
 
 """"""""""""""""""""""""""""""
