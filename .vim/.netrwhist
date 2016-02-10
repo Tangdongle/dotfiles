@@ -1,7 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/_config'
-let g:netrw_dirhist_2='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/code/model'
-let g:netrw_dirhist_3='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/code'
-let g:netrw_dirhist_4='/Users/ryancotter/Documents/workspace/www/mrdc/trunk/_mrdc/code/blocks'
-let g:netrw_dirhist_5='/Users/ryancotter'
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/ryan/www/markwell/public_html/_markwell/javascript'
+let g:netrw_dirhist_2='/Users/ryan/www/tunnelvision/public_html/_tunnelvision/code/blocks'
+let g:netrw_dirhist_3='/Users/ryan/www/tunnelvision/public_html/_tunnelvision/code/model'

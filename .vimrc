@@ -22,6 +22,7 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'google/vim-colorscheme-primary'
 
+"Plugin 'joonty/vim-phpqa.git'
 "Bundle 'joonty/vim-xdebug.git'
 
 call vundle#end()
@@ -30,7 +31,7 @@ filetype plugin indent on
 set history=700
 set autoread
 set nu
-let g:netrw_liststyle=3
+let g:netrw_liststyle = 3
 
 let mapleader = ","
 let g:mapleader = ","
@@ -119,7 +120,9 @@ if has("gui_running")
     set guitablabel=%M\ %t
 endif
 
-set encoding=utf8
+if !has('nvim')
+	set encoding=utf8
+endif
 
 set ffs=unix,dos,mac
 
@@ -269,7 +272,8 @@ map <leader>q :e ~/buffer<cr>
 map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+"map <leader>pp :setlocal paste!<cr>
+set nopaste
 
 
 " Helper functions from Amix's vimrc: http://amix.dk
@@ -335,7 +339,7 @@ endfunction
 """"""""""""""""""""""""""""""
 " => Sass
 """"""""""""""""""""""""""""""
-au FileType,BufWrite *.sass setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab si
+au FileType,BufWrite,BufRead *.sass setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab si
 
 """"""""""""""""""""""""""""""
 " => Python section
@@ -348,7 +352,7 @@ au BufNewFile,BufRead *.mako set ft=mako
 
 "au FileType python map <buffer> F :set foldmethod=indent<cr>
 
-au FileType python inoremap <buffer> $r return 
+"au FileType python inoremap <buffer> $r return 
 "au FileType python inoremap <buffer> $i import 
 au FileType python inoremap <buffer> $p print 
 au FileType python inoremap <buffer> $f #--- PH ----------------------------------------------<esc>FP2xi
@@ -368,8 +372,8 @@ au FileType javascript setl fen shiftwidth=4 tabstop=4 noexpandtab softtabstop=4
 au FileType javascript imap <c-t> $log();<esc>hi
 au FileType javascript imap <c-a> alert();<esc>hi
 
-au FileType javascript inoremap <buffer> $r return 
-au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
+"au FileType javascript inoremap <buffer> $r return 
+"au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
 
 function! JavaScriptFold() 
     setl foldmethod=syntax
@@ -397,13 +401,15 @@ au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 """"""""""""""""""""""""""""""
 " => YAML section
 """"""""""""""""""""""""""""""
-au FileType yaml setl shiftwidth=2 tabstop=2 expandtab softtabstop=2 
+au FileType,BufWrite text setl ft=yaml
+au FileType,BufWrite yaml setl shiftwidth=2 tabstop=2 expandtab softtabstop=2 
 
 
 """"""""""""""""""""""""""""""
 " => PHP section
 """"""""""""""""""""""""""""""
 au FileType,BufWrite php setl shiftwidth=4 tabstop=4 noexpandtab softtabstop=4 
+
 
 """"""""""""""""""""""""""""""
 " => Remaps a custom key to NOP
@@ -412,14 +418,19 @@ nnoremap <D-P> <NOP>
 inoremap <D-P> <NOP>
 vnoremap <D-P> <NOP>
 
+
+au FileType,BufRead,BufNewFile,BufCreate *.php inoremap <leader>i <% if X %>
+au FileType,BufRead,BufNewFile,BufCreate *.php inoremap <leader>e <% end_if %>
+
 nmap <leader>@ :Vex<cr>
 nmap <leader>ev :vsplit $MYVIMRC<cr>
+nmap <leader>d :bd<cr>
 
 """"""""""""""""""""""""""""""
 " => Silverstripe
 """"""""""""""""""""""""""""""
 
-au BufNewFile,BufRead,BufCreate,WinLeave,WinEnter *.ss set filetype=xhtml
+au BufNewFile,BufRead,BufCreate,WinLeave,WinEnter *.ss setl filetype=xhtml
 au FileType,BufWrite xhtml setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab si
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "au FileType html,xhtml,*.ss compiler html
@@ -431,10 +442,11 @@ au FileType,BufWrite xhtml setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 let g:file_template_default = {}
 let g:file_template_default["default"] = "Default"
 let g:file_template_default["php"] = "PHPClass"
-au BufNewFile *.php :LoadFileTemplate
+"au BufNewFile *.php :LoadFileTemplate
 
 """"""""""""""""""""""""""""""
 " => SVN
 """"""""""""""""""""""""""""""
 let g:svnj_browse_cache_all = 1
 let g:svnj_allow_leader_mappings=1
+

@@ -81,20 +81,6 @@ elif [[ $OSTYPE == "linux-gnu" ]]; then
 	fi
 fi
 
-minify() {
-    file=$1 
-   file=${file%%.*}
-   if [[ -x "$HOME/scripts" ]]; then
-		java -jar "$HOME/scripts/yui.jar" $file.js -o $file.min.js
-	fi
-}
-
-alias jsmin=minify
-
-if [[ -x "~/git-tf" ]]; then
-	export PATH="~/git-tf":$PATH
-fi
-
 export CFLAGS=-Qunused-arguments
 export CPPFLAGS=-Qunused-arguments
 export WORKON_HOME=$HOME/.virtualenvs
@@ -142,10 +128,6 @@ alias ss-build='sake dev/build'
 alias ss-build-new='sake dev/build | grep +'
 alias ss-build-f='sake dev/build "flush=all"'
 
-
-alias fuck='sudo $(history -p \!\!)'
-alias vm3='echo vm3.activcloud.com.au'
-
 if [[ -r /usr/local/bin/virtualenvwrapper.sh ]]; then
 	source /usr/local/bin/virtualenvwrapper.sh
 fi
@@ -153,14 +135,13 @@ fi
 alias start_mysql='sudo $MYSQL_HOME/bin/mysqld_safe &'
 alias stop_mysql='sudo $MYSQL_HOME/bin/mysqladmin shutdown'
 
-alias www='cd ~/Documents/workspace/www'
-alias old-dev='cd ~/Documents/workspace/www/old-dev-backups/MILLENIUM\ TAKE\ II'
+alias www='cd /www'
+alias old-dev='cd /www/old-dev-backups/MILLENIUM\ TAKE\ II'
 
 autoload -U zmv
 alias zmv="noglob zmv -W"
 export VMAIL_HTML_PART_READER='elinks -dump'
 export VMAIL_VIM=mvim
-alias vim="nvim"
 
 bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
@@ -170,11 +151,6 @@ function zle-keymap-select {
     VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
     RPS1="${${KEYMAP/vicmd/$VIM_PROMPT}/(main|viins)/} $EPS1"
      zle reset-prompt
-}
-
-function copyDatabase {
-	a= ssh -p $1 $2@$3 "mysqldump --create-options --add-drop-database -B -u $2_db -p$4 $2_db" | mysql -u root $2_db
-
 }
 
 zle -N zle-keymap-select
@@ -202,7 +178,7 @@ alias music="mpsyt"
 
 function baconate()
 {
-	/usr/bin/baconator | pbcopy
+	/usr/local/bin/baconator | pbcopy
 }
 
 alias svnextern="svn propedit svn:externals ."
@@ -216,7 +192,19 @@ function s()
     screen -t "$@" /usr/bin/ssh "$@"
 }
 
-eval "$(thefuck --alias)"
 #ssh -f -o ExitOnForwardFailure=yes -L 3306:localhost:3306 sleep 10
 #mysql -e 'SHOW DATABASES;' -h 127.0.0.1
 #pipe connection through , sleep 10 while background process on remote side, ensuring the connection kills itself after 10 seconds
+VIM_CMD=/usr/local/bin/mvim2
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+
+alias apacheconf="$(brew --prefix)/etc/apache2/2.4"
+
+test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
+
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+
+alias flip="(╯°□°）╯︵ ┻━┻)"
