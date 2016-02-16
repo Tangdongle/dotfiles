@@ -199,7 +199,6 @@ VIM_CMD=/usr/local/bin/mvim2
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
-alias apacheconf="$(brew --prefix)/etc/apache2/2.4"
 
 test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
 
