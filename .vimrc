@@ -1,6 +1,6 @@
+
 set nocompatible
 set nobackup
-"Set my local .vim directory so stuff doesn't complain about it
 let g:VIMFILESDIR = "/Users/ryancotter/.vim/"
 filetype off
 
@@ -22,20 +22,40 @@ Plugin 'scrooloose/nerdcommenter'
 
 Plugin 'google/vim-colorscheme-primary'
 
-"Plugin 'joonty/vim-phpqa.git'
-"Bundle 'joonty/vim-xdebug.git'
+Plugin 'guns/vim-sexp'
+
+Plugin 'kien/rainbow_parentheses.vim'
+
+Plugin 'tpope/vim-fireplace'
+
+Plugin 'guns/vim-clojure-highlight'
 
 call vundle#end()
 filetype plugin indent on
 
-set history=700
-set autoread
-set nu
-let g:netrw_liststyle = 3
 
+" Brief help
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+"
+
+" Sets how many lines of history VIM has to remember
+set history=700
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+set nu
+
+let g:netrw_liststyle=3
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
 
+" Fast saving
 nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
@@ -46,8 +66,13 @@ if !exists("g:sudo_save_command")
 endif
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
+" Avoid garbled characters in Chinese language windows OS
 let $LANG='en' 
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
@@ -64,31 +89,48 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
+"Always show current position
 set ruler
+
+" Height of the command bar
 set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
 set hid
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
+" In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
 endif
 
+" Ignore case when searching
 set ignorecase
+
+" When searching try to be smart about cases 
 set smartcase
+
+" Highlight search results
 set hlsearch
+
+" Makes search act like search in modern browsers
 set incsearch 
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw 
+
+" For regular expressions turn magic on
 set magic
 
+" Show matching brackets when text indicator is over them
 set showmatch 
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
+" No annoying sound on errors
 set noerrorbells
 set novisualbell
 set t_vb=
@@ -98,12 +140,17 @@ set tm=500
 set foldcolumn=1
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
 syntax enable 
 
 "try
 "    colorscheme desert
 "catch
 "endtry
+
 
 set t_Co=256
 set background=light
@@ -114,28 +161,43 @@ endtry
 
 set background=dark
 
+" Set extra options when running in GUI mode
 if has("gui_running")
     set guioptions-=T
     set guioptions-=e
+"    set t_Co=256
     set guitablabel=%M\ %t
 endif
 
-if !has('nvim')
-	set encoding=utf8
-endif
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
 
+" Use Unix as the standard file type
 set ffs=unix,dos,mac
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nowb
 set noswapfile
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
 set noexpandtab
+
+" Be smart when using tabs ;)
 set smarttab
+
+" 1 tab == 4 spaces
 set shiftwidth=4
 set tabstop=4
+
+" Linebreak on 500 characters
 set lbr
 set tw=500
 
@@ -144,11 +206,18 @@ set ai "Auto indent
 set wrap "Wrap lines
 
 
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
@@ -172,9 +241,13 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" Close the current buffer
 map <leader>bd :Bclose<cr>
+
+" Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
 
+" Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
@@ -186,9 +259,15 @@ let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" Specify the behavior when switching between buffers 
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
@@ -200,9 +279,24 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+" Remember info about open buffers on close
 set viminfo^=%
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
 set laststatus=2
+
+" Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
 map 0 ^
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
@@ -217,7 +311,7 @@ if has("mac") || has("macunix")
   vmap <D-j> <M-j>
   vmap <D-k> <M-k>
 endif
-" Delete trailing white space on save
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
@@ -227,6 +321,10 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ack searching and cope displaying
+"    requires ack.vim - it's much better than vimgrep/grep
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " When you press gv you Ack after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
@@ -253,15 +351,22 @@ map <leader>n :cn<cr>
 map <leader>p :cp<cr>
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
-"
+
 " Shortcuts using <leader>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
@@ -272,12 +377,14 @@ map <leader>q :e ~/buffer<cr>
 map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
-"map <leader>pp :setlocal paste!<cr>
-set nopaste
+map <leader>pp :setlocal paste!<cr>
 
 
-" Helper functions from Amix's vimrc: http://amix.dk
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
@@ -337,9 +444,15 @@ endfunction
 
 
 """"""""""""""""""""""""""""""
+" => Filetypes
+""""""""""""""""""""""""""""""
+
+
+
+""""""""""""""""""""""""""""""
 " => Sass
 """"""""""""""""""""""""""""""
-au FileType,BufWrite,BufRead *.sass setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab si
+au FileType,BufWrite *.sass setl shiftwidth=2 tabstop=2 softtabstop=2 expandtab si
 
 """"""""""""""""""""""""""""""
 " => Python section
@@ -352,7 +465,7 @@ au BufNewFile,BufRead *.mako set ft=mako
 
 "au FileType python map <buffer> F :set foldmethod=indent<cr>
 
-"au FileType python inoremap <buffer> $r return 
+au FileType python inoremap <buffer> $r return 
 "au FileType python inoremap <buffer> $i import 
 au FileType python inoremap <buffer> $p print 
 au FileType python inoremap <buffer> $f #--- PH ----------------------------------------------<esc>FP2xi
@@ -372,8 +485,8 @@ au FileType javascript setl fen shiftwidth=4 tabstop=4 noexpandtab softtabstop=4
 au FileType javascript imap <c-t> $log();<esc>hi
 au FileType javascript imap <c-a> alert();<esc>hi
 
-"au FileType javascript inoremap <buffer> $r return 
-"au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
+au FileType javascript inoremap <buffer> $r return 
+au FileType javascript inoremap <buffer> $f //--- PH ----------------------------------------------<esc>FP2xi
 
 function! JavaScriptFold() 
     setl foldmethod=syntax
@@ -401,15 +514,13 @@ au FileType gitcommit call setpos('.', [0, 1, 1, 0])
 """"""""""""""""""""""""""""""
 " => YAML section
 """"""""""""""""""""""""""""""
-au FileType,BufWrite text setl ft=yaml
-au FileType,BufWrite yaml setl shiftwidth=2 tabstop=2 expandtab softtabstop=2 
+au FileType yaml setl shiftwidth=2 tabstop=2 expandtab softtabstop=2 
 
 
 """"""""""""""""""""""""""""""
 " => PHP section
 """"""""""""""""""""""""""""""
 au FileType,BufWrite php setl shiftwidth=4 tabstop=4 noexpandtab softtabstop=4 
-
 
 """"""""""""""""""""""""""""""
 " => Remaps a custom key to NOP
@@ -418,22 +529,16 @@ nnoremap <D-P> <NOP>
 inoremap <D-P> <NOP>
 vnoremap <D-P> <NOP>
 
-
-au FileType,BufRead,BufNewFile,BufCreate *.php inoremap <leader>i <% if X %>
-au FileType,BufRead,BufNewFile,BufCreate *.php inoremap <leader>e <% end_if %>
-
 nmap <leader>@ :Vex<cr>
 nmap <leader>ev :vsplit $MYVIMRC<cr>
-nmap <leader>d :bd<cr>
 
 """"""""""""""""""""""""""""""
 " => Silverstripe
 """"""""""""""""""""""""""""""
 
-au BufNewFile,BufRead,BufCreate,WinLeave,WinEnter *.ss setl filetype=xhtml
+au BufNewFile,BufRead,BufCreate,WinLeave,WinEnter *.ss set filetype=xhtml
 au FileType,BufWrite xhtml setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab si
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"au FileType html,xhtml,*.ss compiler html
 
 
 """"""""""""""""""""""""""""""
@@ -442,11 +547,10 @@ au FileType,BufWrite xhtml setl shiftwidth=4 tabstop=4 softtabstop=4 noexpandtab
 let g:file_template_default = {}
 let g:file_template_default["default"] = "Default"
 let g:file_template_default["php"] = "PHPClass"
-"au BufNewFile *.php :LoadFileTemplate
+au BufNewFile *.php :LoadFileTemplate
 
 """"""""""""""""""""""""""""""
 " => SVN
 """"""""""""""""""""""""""""""
 let g:svnj_browse_cache_all = 1
 let g:svnj_allow_leader_mappings=1
-
